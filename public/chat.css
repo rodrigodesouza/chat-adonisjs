@@ -1,0 +1,30 @@
+.badge-green {
+	background: green !important;
+}
+.bodyWindows{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: auto;
+}
+.bodyChat{
+	width: 200px;
+	background: #ccc;
+	/*height: 300px;*/
+	position: relative;
+	float: left;
+	bottom: 0;
+	margin-right: 5px;
+}
+.bodyChat .head{
+	width: 100%;
+	padding: 5px;
+	background: #eee;
+}
+.bodyChat .main {
+	height: 250px;
+}
+.bodyChat .body{
+	height: 85%;
+	overflow-y: scroll;
+}

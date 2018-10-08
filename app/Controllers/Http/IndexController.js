@@ -1,13 +1,16 @@
 'use strict'
 // const User = use('App/Models/User');
 const User = use('App/Models/User');
+const Hash = use('Hash')
 class IndexController {
     async insere() {
         const userData = {
-            nome: "Leonel Rodrigo",
-            email: "rodrigo@bredi.com.br"
+            login: "marli",
+            nome: "Marli de souza",
+            email: "marlicostapalheta@gmail.com",
+            password: await Hash.make("bredi")
         };
-        const user2 = await User.create(userData)
+        const user2 = null; //await User.create(userData)
         return user2
     }
     async index() {
@@ -23,8 +26,8 @@ class IndexController {
         // await user.save();
         console.log(user)
         */
-        var dado = await User.all();
-        return dado;
+        // var dado = await User.all();
+        // return dado;
         // return 'aqui'
     }
 }

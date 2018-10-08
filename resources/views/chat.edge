@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  {{ style('chat') }}
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+<body>
+<input type="text" name="" id="loginUsuario" value="{{ usuario._id }}">
+@set('username', request.input('username'))
+<div class="header">
+  <h2>
+    <span>Hello {{ usuario.nome }}! <span class="badge" id="status">on</span></span>
+    <span class="connected-users"></span>
+    <span class="connection-status"></span>
+  </h2>
+</div>
+ <div class="container" id="content" tabindex="-1">
+    <div class="row">
+    	<div class="col-sm-6">
+    		<ul class="list-group">
+         @each(user in users)
+			  <li class="list-group-item">
+			  	<a href="javascript:void(0)" class="ativaJanela" data-user-id="{{ user._id }}">
+				    {{ user.nome }}
+			    </a>
+				    <span class="badge badge-green">on</span>
+			  </li>
+        @endeach
+
+			</ul>
+    	</div>
+    	<div class="col-sm-6">
+        <ul id="public-chat">
+
+        </ul>
+        <input type="text" name="" id="msgTodos">
+        <button type="button" class="btn btn-primary" id="enviaTodos">Enviar para todos</button>
+    	</div>
+    </div>
+ </div>
+ <div class="bodyWindows">
+
+ </div>
+{{--
+ <div class="bodyChat" id="window-#ID">
+ 	<div class="head">
+ 		<h4 id="h-name-#ID">Rodrigo</h4>
+ 	</div>
+ 	<div class="body">
+ 		<div id="div-msg-#ID"></div>
+ 	</div>
+ 	<footer>
+ 		<form action="#" method="post">
+	        <div class="input-group">
+	          <input type="text" name="message" placeholder="Type Message ..." class="form-control" id="input-send-#ID">
+	              <span class="input-group-btn">
+	                <button type="submit" class="btn btn-primary" id="btn-send-#ID">Send</button>
+	              </span>
+	        </div>
+	    </form>
+ 	</footer>
+ </div>
+ --}}
+<script>
+
+</script>
+  {{ script('https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js') }}
+  {{ script('https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js') }}
+  {{ script('https://unpkg.com/jquery@3.3.1/dist/jquery.js') }}
+  {{ script('chat2.js') }}
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
