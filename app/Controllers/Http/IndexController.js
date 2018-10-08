@@ -5,12 +5,12 @@ const Hash = use('Hash')
 class IndexController {
     async insere() {
         const userData = {
-            login: "marli",
-            nome: "Marli de souza",
-            email: "marlicostapalheta@gmail.com",
+            username: "rodrigo",
+            // nome: "rodrigo de souza",
+            email: "rodrigo@gmail.com",
             password: await Hash.make("bredi")
         };
-        const user2 = null; //await User.create(userData)
+        const user2 = await User.create(userData)
         return user2
     }
     async index() {

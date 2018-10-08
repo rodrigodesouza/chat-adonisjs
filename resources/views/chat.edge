@@ -14,11 +14,11 @@
 
 </head>
 <body>
-<input type="text" name="" id="loginUsuario" value="{{ usuario._id }}">
+<input type="text" name="" id="loginUsuario" value="{{ usuario.id }}">
 @set('username', request.input('username'))
 <div class="header">
   <h2>
-    <span>Hello {{ usuario.nome }}! <span class="badge" id="status">on</span></span>
+    <span>Hello {{ usuario.username }}! <span class="badge" id="status">on</span></span>
     <span class="connected-users"></span>
     <span class="connection-status"></span>
   </h2>
@@ -29,8 +29,8 @@
     		<ul class="list-group">
          @each(user in users)
 			  <li class="list-group-item">
-			  	<a href="javascript:void(0)" class="ativaJanela" data-user-id="{{ user._id }}">
-				    {{ user.nome }}
+			  	<a href="javascript:void(0)" class="ativaJanela" data-user-id="{{ user.id }}">
+				    {{ user.username }}
 			    </a>
 				    <span class="badge badge-green">on</span>
 			  </li>

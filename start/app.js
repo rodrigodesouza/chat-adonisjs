@@ -9,7 +9,9 @@
 | provider here.
 |
 */
-const providers = ['@adonisjs/framework/providers/AppProvider', '@adonisjs/framework/providers/ViewProvider', '@adonisjs/lucid/providers/LucidProvider', '@adonisjs/bodyparser/providers/BodyParserProvider', '@adonisjs/cors/providers/CorsProvider', '@adonisjs/shield/providers/ShieldProvider', '@adonisjs/session/providers/SessionProvider', '@adonisjs/auth/providers/AuthProvider', '@adonisjs/websocket/providers/WsProvider', 'lucid-mongo/providers/LucidMongoProvider']
+const providers = ['@adonisjs/framework/providers/AppProvider', '@adonisjs/framework/providers/ViewProvider', '@adonisjs/lucid/providers/LucidProvider', '@adonisjs/bodyparser/providers/BodyParserProvider', '@adonisjs/cors/providers/CorsProvider', '@adonisjs/shield/providers/ShieldProvider', '@adonisjs/session/providers/SessionProvider', '@adonisjs/auth/providers/AuthProvider', '@adonisjs/websocket/providers/WsProvider',
+    // 'lucid-mongo/providers/LucidMongoProvider'
+]
 /*
 |--------------------------------------------------------------------------
 | Ace Providers
@@ -19,7 +21,9 @@ const providers = ['@adonisjs/framework/providers/AppProvider', '@adonisjs/frame
 | Providers for migrations, tests etc.
 |
 */
-const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider', 'lucid-mongo/providers/MigrationsProvider']
+const aceProviders = ['@adonisjs/lucid/providers/MigrationsProvider', 'adonis-mongoose-model/providers/MongooseProvider',
+    //'lucid-mongo/providers/MigrationsProvider'
+]
 /*
 |--------------------------------------------------------------------------
 | Aliases

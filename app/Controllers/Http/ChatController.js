@@ -6,7 +6,7 @@ class ChatController {
     }) {
         const User = use('App/Models/User');
         const query = request.get()
-        let usuario = await User.query().where('login', query.username).first();
+        let usuario = await User.query().where('username', query.username).first();
         usuario = usuario.toJSON();
         var dados = await User.all();
         return view.render('chat', {

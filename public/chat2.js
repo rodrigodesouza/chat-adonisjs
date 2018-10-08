@@ -21,7 +21,7 @@ function startChat() {
 function subscribeToChannel() {
     const chat = ws.subscribe('chat:public')
     const verificaSala = ws.subscribe('chat:verificaSala')
-    chat.on('error', () => {
+    chat.on('error', (error) => {
         $('#status').removeClass('badge-green')
         console.log(error)
     })

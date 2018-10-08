@@ -9,11 +9,28 @@ class ChatController {
         this.request = request
     }
     // this.socket.on('verificaSala', () => {})
-    onMessage(message) {
+    async onMessage(message) {
         console.log(message, this.socket.topic)
-        if (this.socket.topic == 'chat:verificaSala') {}
+        if (this.socket.topic == 'chat:verificaSala') {
+            const Sala = use('App/Models/Sala')
+            let verificaSala = await Sala.query().where('user2_id', message.to).where('user1_id', message.from).first();
+            let sala = Math.random(5555 * 55555);
+            console.log(sala)
+            /*if (!verificaSala) {
+
+                criaSala = await Sala.create({
+                    user2_id: message.to,
+                    user1_id: message.from
+                })
+            }*/
+            message = {
+                //novaSala: criaSala
+            }
+            this.socket.broadcastToAll('message', message)
+        } else {
+            this.socket.broadcastToAll('message', message)
+        }
         // this.socket.broadcastToAll('verificaSala', message)
-        this.socket.broadcastToAll('message', message)
         // Message.create(message)
         // var json = this.socket.channel;
         // console.log(JSON.stringify(json), 'aqui')
