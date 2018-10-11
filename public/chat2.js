@@ -1,4 +1,5 @@
 let ws = null
+console.log(minhasSalas, '   minhasSalas')
 $(function() {
     // if (window.username) {
     //     console.log('aioi', window.username)
@@ -28,10 +29,21 @@ function subscribeToChannel() {
     chat.on('message', (message) => {
         console.log(message, 'recebendo mensagem');
         $("#public-chat").append('<li>' + message + '</li>');
-        /*$('.messages').append(`
-      <div class="message"><h3> ${message.username} </h3> <p> ${message.body} </p> </div>
-    `)*/
     })
+    verificaSala.on('message', async (message) => {
+        $("#window-" + message.to).attr('data-sala', message.novaSala.token_sala);
+        let Salaum = new Array;
+        if (ws.getSubscription('chat:' + message.novaSala.token_sala)) {
+            Salaum[message.novaSala.token_sala] = await ws.getSubscription('chat:' + message.novaSala.token_sala);
+        } else {
+            Salaum[message.novaSala.token_sala] = await ws.subscribe('chat:' + message.novaSala.token_sala);
+        }
+        console.log(message, ' verificaSala');
+        Salaum[message.novaSala.token_sala].on('message', (msg) => {
+            console.log(msg, '   msg')
+            $('div[data-sala="' + msg.sala + '"]').find('.div-msg').append('<li>' + msg.msg + '</li>')
+        })
+    });
     chat.on('new:user', () => {
         $('.messages').append(`
       <div class="message"><p>Novo usuário entrou no chat </p> </div>
@@ -72,8 +84,9 @@ function verificaJanela(user) {
 
 function criaJanela(user) {
     var id = user.data('user-id');
+    var sala = user.data('sala');
     var janela = '\
-  <div class="bodyChat" id="window-' + id + '">\
+  <div class="bodyChat" id="window-' + id + '" data-sala="' + sala + '">\
     <div class="head">\
         <span id="h-name-' + id + '">\
         <strong>' + user.text() + '</strong>\
@@ -89,10 +102,10 @@ function criaJanela(user) {
       </div>\
     <div class="main">\
     <div class="body">\
-      <div id="div-msg-' + id + '"></div>\
+      <div class="div-msg" id="div-msg-' + id + '"></div>\
     </div>\
     <footer>\
-      <form action="#" method="post">\
+      <form action="javascript:void(0)" method="post">\
             <div class="input-group">\
               <input type="text" name="message" placeholder="Type Message ..." class="form-control" id="input-send-' + id + '" data-id="' + id + '">\
                   <span class="input-group-btn">\
@@ -118,14 +131,34 @@ function closeWindow(user) {
 $('.bodyWindows').delegate('.sendMessage', 'click', function() {
     let id = $(this).data('id');
     msg = $("#input-send-" + id).val();
-    if (msg) {
-        sendMessage(msg, id);
+    if ($("#window-" + id).data('sala') != undefined && $("#window-" + id).data('sala') != 'undefined') {
+        let sala = $("#window-" + id).data('sala'); //.replace('"', '');
+        sendMessage(id, msg, sala);
+    } else {
+        verificaSala(id);
     }
 });
-
-function sendMessage(msg, id) {
-    verificaSala(id);
-    // alert(msg)
+async function sendMessage(id, msg, sala) {
+    let msgem;
+    if (ws.getSubscription('chat:' + sala)) {
+        msgem = ws.getSubscription('chat:' + sala);
+    } else {
+        msgem = ws.subscribe('chat:' + sala);
+    }
+    console.log('enviando...')
+    msgem.emit('message', {
+        msg: msg,
+        id: id,
+        sala: sala
+    });
+    msgem.on('message', (msg) => {
+        $('div[data-sala="' + msg.sala + '"]').find('.div-msg').append('<li>' + msg.msg + '</li>')
+    })
+    msgem.on('error', (m) => {
+        console.log(m, '  error xxx')
+    })
+    $("#input-send-" + id).val('');
+    // console.log(msgem, ' msgem', 'chat:' + sala);
 }
 
 function verificaSala(id) {

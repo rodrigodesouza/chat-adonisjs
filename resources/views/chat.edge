@@ -29,7 +29,7 @@
     		<ul class="list-group">
          @each(user in users)
 			  <li class="list-group-item">
-			  	<a href="javascript:void(0)" class="ativaJanela" data-user-id="{{ user.id }}">
+			  	<a href="javascript:void(0)" class="ativaJanela" data-user-id="{{ user.id }}" {{ (user.token_sala != null) ? 'data-sala='+ user.token_sala+'' : '' }}>
 				    {{ user.username }}
 			    </a>
 				    <span class="badge badge-green">on</span>
@@ -76,6 +76,9 @@
   {{ script('https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.26.0/polyfill.min.js') }}
   {{ script('https://unpkg.com/@adonisjs/websocket-client@1.0.9/dist/Ws.browser.js') }}
   {{ script('https://unpkg.com/jquery@3.3.1/dist/jquery.js') }}
+  <script src="/javascripts/application.js" type="text/javascript" charset="utf-8" async defer>
+  minhasSalas = '{{ minhasSalas }}';
+  </script>
   {{ script('chat2.js') }}
 
 <!-- Latest compiled and minified JavaScript -->
